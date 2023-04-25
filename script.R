@@ -10,24 +10,11 @@ api_token <- yaml::read_yaml("secrets.yaml")$JETON_API
 
 # FONCTIONS ---------------------------------
 
-decennie_a_partir_annee <- function(annee) {
-  return(annee - annee %% 10)
-}
+source("R/functions.R", encoding = "UTF-8")
 
-fonction_de_stat_agregee <- function(a, b = "moyenne", ...) {
-  if (b == "moyenne") {
-    x <- mean(a, na.rm = TRUE, ...)
-  } else if (b == "ecart-type" || b == "sd") {
-    x <- sd(a, na.rm = TRUE, ...)
-  } else if (b == "variance") {
-    x <- var(a, na.rm = TRUE, ...)
-  }
-  return(x)
-}
-
-fonction_de_stat_agregee(rnorm(10))
-fonction_de_stat_agregee(rnorm(10), "ecart-type")
-fonction_de_stat_agregee(rnorm(10), "variance")
+calcul_stat_agregee(rnorm(10))
+calcul_stat_agregee(rnorm(10), "ecart-type")
+calcul_stat_agregee(rnorm(10), "variance")
 
 
 # IMPORT DONNEES -----------------------------

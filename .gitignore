@@ -3,6 +3,8 @@ individu_reg.*
 #Ficher de mots de passe et de token
 secrets.yaml
 
+test.R
+
 # History files
 .Rhistory
 .Rapp.history

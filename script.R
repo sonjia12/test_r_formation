@@ -8,14 +8,7 @@ library(forcats)
 
 api_token <- yaml::read_yaml("secrets.yaml")$JETON_API
 
-# FONCTIONS ---------------------------------
-
 source("R/functions.R", encoding = "UTF-8")
-
-calcul_stat_agregee(rnorm(10))
-calcul_stat_agregee(rnorm(10), "ecart-type")
-calcul_stat_agregee(rnorm(10), "variance")
-
 
 # IMPORT DONNEES -----------------------------
 
@@ -40,8 +33,8 @@ df$sexe <- df$sexe %>%
 
 summarise(group_by(df, aged), n())
 
-fonction_de_stat_agregee(df %>% filter(sexe == "Homme") %>% pull(aged))
-fonction_de_stat_agregee(df %>% filter(sexe == "Femme") %>% pull(aged))
+stats_agregees(df %>% filter(sexe == "Homme") %>% pull(aged))
+stats_agregees(df %>% filter(sexe == "Femme") %>% pull(aged))
 
 ## stats trans par statut =====================
 

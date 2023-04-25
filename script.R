@@ -1,7 +1,42 @@
+
+# Nettoyage ---------------------------------------------------------------
+
+
 rm(list = ls())
+
+
+# Librairies --------------------------------------------------------------
+
 
 library(dplyr)
 library(ggplot2)
+
+
+
+# Variables d'environnement -----------------------------------------------
+
+yaml::read_yaml("secrets.yaml")
+
+# Fonctions ---------------------------------------------------------------
+
+decennie_a_partir_annee <- function(annee) {
+  return(annee - annee %%
+           10)
+}
+
+# fonction de stat agregee
+fonction_de_stat_agregee <- function(a, b = "moyenne", ...) {
+  if (b == "moyenne") {
+    x <- mean(a, na.rm = TRUE, ...)
+  } else if (b == "ecart-type" || b == "sd") {
+    x <- sd(a, na.rm = TRUE, ...)
+  } else if (b == "variance") {
+    x <- var(a, na.rm = TRUE, ...)
+  }
+  return(x)
+}
+
+# Import des données ------------------------------------------------------
 
 # j'importe les données avec read_csv2 parce que c'est un csv avec des ; et
 #que read_csv attend comme separateur des ,
@@ -26,18 +61,30 @@ df <- readr::read_csv2(
                  "ur")
 )
 
+
+# Traitements -------------------------------------------------------------
+
 df <- df %>%
   mutate(aged = as.numeric(aged))
 
+
+# Statistiques decriptives ------------------------------------------------
+
 summarise(group_by(df, aged), n())
 
-decennie_a_partir_annee <- function(annee) {
-  return(annee - annee %%
-    10)
-}
+# Graphiques --------------------------------------------------------------
 
 ggplot(df) +
   geom_histogram(aes(x = 5 * floor(as.numeric(aged) / 5)), stat = "count")
+
+
+# Modélisation ------------------------------------------------------------
+
+
+
+
+
+
 
 
 # stats trans par statut
@@ -66,17 +113,6 @@ df$sexe <- df$sexe %>%
   as.character() %>%
   forcats::fct_recode(Homme = "1", Femme = "2")
 
-# fonction de stat agregee
-fonction_de_stat_agregee <- function(a, b = "moyenne", ...) {
-  if (b == "moyenne") {
-    x <- mean(a, na.rm = TRUE, ...)
-  } else if (b == "ecart-type" || b == "sd") {
-    x <- sd(a, na.rm = TRUE, ...)
-  } else if (b == "variance") {
-    x <- var(a, na.rm = TRUE, ...)
-  }
-  return(x)
-}
 
 fonction_de_stat_agregee(rnorm(10))
 fonction_de_stat_agregee(rnorm(10), "ecart-type")

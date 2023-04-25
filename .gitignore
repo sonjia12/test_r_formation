@@ -1,6 +1,7 @@
 individu_reg.*
 
-
+#Ficher de mots de passe et de token
+secrets.yaml
 
 # History files
 .Rhistory

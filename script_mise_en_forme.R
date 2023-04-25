@@ -8,3 +8,6 @@ styler::style_file("script.R")
 
 
 lintr::lint("script.R")
+
+
+# Ctrl+shif+R pour faire les titres de sections

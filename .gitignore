@@ -1,5 +1,7 @@
 individu_reg.*
 
+_targets/
+
 #Ficher de mots de passe et de token
 secrets.yaml
 
